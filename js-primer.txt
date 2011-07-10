@@ -64,6 +64,47 @@ Remember, the 'function printer(ns)' syntax I used above is in fact a shorthand 
 
 Object literals are pretty powerful, but they don't really allow us to do much besides assignment. Using the module pattern, we can use function closure to give us the ability to assemble our namespaces and provide namespace constructors as well as private variables - I'll cover this next.
 
+The Module Pattern
+
+So first, let's define this so-called module pattern I've referred to a couple of times.  You can google it too if you'd like, not a bad idea, but I'll try to give you some quick insight into how it works here.
+
+So functions have closures, I've mentioned this a few times so far.  Closures are essentially a memory in the function of what was going on when it was executed.  The other nice thing that closures allow is scoping for declared variables.  So how do we use this with a namespace then? Well, you still basically return a function literal, but you execute a function to do it, like this:
+
+var Utils = function() {
+
+	var date = new Date()
+
+	return {
+		print_date: function() { console.log(date) }
+	}
+}()
+
+Note the parenthesis at the end of the statement.  Basically, what you're doing is defining a function, and then immediately executing it, with a return value that's an object literal.  The cool thing about this particular implementation is that the date value you initialized when you executed the function is returned each and every time you call Util.print_date()! That's the voodoo of function closures in action.
+
+We've also basically created a namespace in the above example as well a Utils namespace.  Here's another slightly more complicated example:
+
+Application.Logger = function() {
+    
+    if (!window.console) console = {}
+    
+    console.log = console.log || function(x){}
+    console.warn = console.warn || function(x){}
+    console.info = console.info || function(x) {}
+    console.error = console.error || function(x) {} 
+    
+    return {
+        log:    function(msg) { console.log(msg) },
+        warn:   function(msg) { console.warn(msg) },
+        info:   function(msg) { console.info(msg) },
+        error:  function(msg) { console.error(msg) }
+    }
+}()
+
+Here, we've created a Logger namespace with associated functions for logging information, errors, and the like (thanks to Delan Azabani for the above logging abstraction approach).  Here, we're basically executing a constructor on the namespace we create that allows us to initialize the console object, and then we provide various wrapper functions on that object.
+
+In some ways, these namespaces we're creating are similar to nested classes.  While certainly true, the key point to note is that while these may in fact be objects we're using to provide namespaces, they still provide the namespacing functionality we need by creating specific areas in which we can define unique entity names.
+
+
 
 
 

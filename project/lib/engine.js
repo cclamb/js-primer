@@ -153,3 +153,16 @@ var registrar = Application.Registrar.create(Application.Logger)
 registrar.register('foo', new Object())
 registrar.remove('foo')
 
+var Utils = function() {
+
+	var date = new Date()
+
+	return {
+		print_date: function() { console.log(date) }
+	}
+}()
+
+Utils.print_date()
+Utils.print_date()
+Utils.print_date()
+
