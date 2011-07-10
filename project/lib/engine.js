@@ -78,3 +78,29 @@ m1.start()
 m2.start()
 m1.stop()
 m2.stop()
+
+Application.Registrar = function() {
+
+	var RegistrarImpl = function(logger, suffix) {
+		var elements = {}
+		var logger = logger || function() { throw { msg: 'bad logger' } }()
+		var suffix = suffix || ''
+		this.register = function(name, obj) {
+			logger.info('registering' + suffix)
+			elements[name] = obj
+		}
+		this.remove = function(name) {
+			logger.info('removing' + suffix)
+			elements[name] = null
+		}
+	}
+	
+	return {
+		create: function(logger, suffix) { return new RegistrarImpl(logger, suffix) }
+	}
+	
+}()
+
+var registrar = Application.Registrar.create(Application.Logger)
+registrar.register('foo', new Object())
+registrar.remove('foo')
