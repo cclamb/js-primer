@@ -1,3 +1,51 @@
+
+
+var my_hash = { one: 1, two: 2, three: 3 }
+
+console.log(my_hash['one'])
+
+var key ='one'
+console.log(my_hash[key])
+
+my_hash['four'] = 4
+
+var obj_key = new Object()
+my_hash[obj_key] = 'this is an arbitrary string'
+
+console.log(my_hash['four'])
+console.log(my_hash[obj_key])
+
+var Ns = {
+	TestClass: function() {
+		this.print_name = function() { console.log('TestClass') }
+	}
+}
+
+var tc = new Ns.TestClass()
+tc.print_name()
+
+var Functions = {
+	print_name: function() { console.log('Functions') },
+	print_time: function() { console.log(new Date().getTime()) },
+	print_date: function() { console.log(new Date()) }
+}
+
+Functions.print_name()
+Functions.print_date()
+Functions.print_time()
+
+function printer(ns) {
+	ns.print_name()
+	ns.print_date()
+	ns.print_time()
+}
+
+printer(Functions)
+
+printer = 'orubter'
+
+console.log(printer)
+
 /*var Application = function() {
 	
 	var print = function() {

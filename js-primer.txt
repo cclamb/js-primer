@@ -1,11 +1,74 @@
+Design Primitives in JavaScript
+
 So recently, I've been working on a project building a rich internet client using ExtJS.  I've enjoyed it, it's really given me an appreciation for JavaScript.  Now, first, JavaScript as a language is horribly named.  It's really a quite elegant, powerful language.  It has a limited syntax, which I find a plus honestly after getting used to it.  Furthermore, it has a distinctly functional nature.  Nothing like Erlang, say, or Clojure - in that it doesn't really pattern match function calls the same way, or have much use for recursion.  But it does treat functions as first class objects in the language, and it handles closure well.  It was named JavaScript to piggyback on Java at the time from what I understand, and they needed to add the 'script' because, well, Java was already taken after all.
 
 One of the problems I initially had with JavaScript was learning how to organize my code.  I mentioned JavaScript had certain functional aspects, and though I had some experience using JavaScript in an object-oriented way, my understanding of the kinds of things you could really do with the language was pretty primitive.  I needed to bone up on how you could really create namespaces and class objects and so on in JavaScript.  I wanted to be able to organize the code I was slinging with what I saw in other libraries out there.
 
 This is what I was able to pull together from searching the web, experimenting, and working through my own examples.
 
-In the first section, I'm going to cover how you create namespaces using either object literals or using the module pattern (you'll see this all the time if you look through various commercial or popular open source libraries).  I'll go over how they work and what they allow you to do.
+In the first sections, I'm going to cover how you create namespaces using either object literals or using the module pattern (you'll see this all the time if you look through various commercial or popular open source libraries).  I'll go over how they work and what they allow you to do.
 
 Then I'll go over how you can define classes within namespaces, and how you can separate your files so that you have only a class or two per file.  Keep in mind, this makes the code easier to manage, but you'll need to do some post processing to appropriately concatenate the files into a single minimized file to make it as efficient as possible.
 
 Finally, I'll pull it all together into a single somewhat contrived example that'll hopefully illustrate all the concepts in a meaningful way.
+
+Namespaces
+
+So most programming languages in common use today have some concept of namespaces.  Whether they're called packages, namespaces, or something else, they're ubiquitous as a design element.  JavaScript is no exception, it also has namespace features, based on either function closure (no surprise) via what's known as the module pattern, or object literals.  We'll start with the object literal approach; it's important that you understand this method first, as it's used obliquely with the module pattern, which we'll cover a bit later.
+
+In the below examples, I'm using Google Chrome and the browser's integrated development tools.  Very similar to Firebug in Firefox.  This way, I can use the integrated JavaScript console to both execute arbitrary JavaScript and examine the current interpreter state.  I also have access to various output functions via the console object.
+
+Object literals area a way to create object without a preexisting class definition.  The basic format consists of key/value pairs surrounded by braces and set to some variable:
+
+var anon_obj = { key1: value1, key2: value2, ... , keyN: valueN }
+
+Now, there's some other interesting things about objects and object literals that I should mention before I proceed just to muddy my message a bit.  They can also be used associative arrays.  For example, I can initialize an anonymous object like this:
+
+var my_hash = { one: 1, two: 2, three: 3 }
+
+Now, if I run the following code sometime after defining my_hash, like so:
+
+console.log(my_hash['one'])
+
+var key ='one'
+console.log(my_hash[key])
+
+I see the value 1 output twice in the console.  I can also add key/value pairs to my_hash like this:
+
+my_hash['four'] = 4
+
+and also use objects as keys:
+
+var obj_key = new Object()
+my_hash[obj_key] = 'this is an arbitrary string'
+
+Now back to using literals as namespacing constructs.  First, we're going to provide a namespace for a group of functions, like so:
+
+var Functions = {
+	print_name: function() { console.log('Functions') },
+	print_time: function() { console.log(new Date().getTime()) },
+	print_date: function() { console.log(new Date()) }
+}
+
+You'd invoke these functions using a syntax like Functions.print_name().  You could also pass this namespace into a function call as an argument like this:
+
+function printer(ns) {
+	ns.print_name()
+	ns.print_date()
+	ns.print_time()
+}
+
+printer(Functions)
+
+Remember, the 'function printer(ns)' syntax I used above is in fact a shorthand for 'var printer = function(ns)'.  Personally, I'm usually on the fence as to which one to use; I like the latter because it makes clear that printer is in fact just a variable name that can receive different assignments after declaration, but the former is shorter and generally more clear, as most folks aren't going to reassign the printer variable to something else.
+
+Object literals are pretty powerful, but they don't really allow us to do much besides assignment. Using the module pattern, we can use function closure to give us the ability to assemble our namespaces and provide namespace constructors as well as private variables - I'll cover this next.
+
+
+
+
+
+
+
+
+
