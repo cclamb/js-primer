@@ -1,0 +1,11 @@
+So recently, I've been working on a project building a rich internet client using ExtJS.  I've enjoyed it, it's really given me an appreciation for JavaScript.  Now, first, JavaScript as a language is horribly named.  It's really a quite elegant, powerful language.  It has a limited syntax, which I find a plus honestly after getting used to it.  Furthermore, it has a distinctly functional nature.  Nothing like Erlang, say, or Clojure - in that it doesn't really pattern match function calls the same way, or have much use for recursion.  But it does treat functions as first class objects in the language, and it handles closure well.  It was named JavaScript to piggyback on Java at the time from what I understand, and they needed to add the 'script' because, well, Java was already taken after all.
+
+One of the problems I initially had with JavaScript was learning how to organize my code.  I mentioned JavaScript had certain functional aspects, and though I had some experience using JavaScript in an object-oriented way, my understanding of the kinds of things you could really do with the language was pretty primitive.  I needed to bone up on how you could really create namespaces and class objects and so on in JavaScript.  I wanted to be able to organize the code I was slinging with what I saw in other libraries out there.
+
+This is what I was able to pull together from searching the web, experimenting, and working through my own examples.
+
+In the first section, I'm going to cover how you create namespaces using either object literals or using the module pattern (you'll see this all the time if you look through various commercial or popular open source libraries).  I'll go over how they work and what they allow you to do.
+
+Then I'll go over how you can define classes within namespaces, and how you can separate your files so that you have only a class or two per file.  Keep in mind, this makes the code easier to manage, but you'll need to do some post processing to appropriately concatenate the files into a single minimized file to make it as efficient as possible.
+
+Finally, I'll pull it all together into a single somewhat contrived example that'll hopefully illustrate all the concepts in a meaningful way.

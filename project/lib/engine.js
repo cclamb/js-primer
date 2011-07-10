@@ -104,3 +104,4 @@ Application.Registrar = function() {
 var registrar = Application.Registrar.create(Application.Logger)
 registrar.register('foo', new Object())
 registrar.remove('foo')
+
