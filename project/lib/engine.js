@@ -1,4 +1,4 @@
-var Application = function() {
+/*var Application = function() {
 	
 	var print = function() {
 		console.log('printing')
@@ -8,16 +8,22 @@ var Application = function() {
 		print: print
 	}
 		
-}()
+}()*/
+var Application = {
+	print: function() { console.log('printing') }
+}
 
 
 // cite delan azabani, stack overflow, http://stackoverflow.com/questions/217957/how-to-print-debug-messages-in-the-google-chrome-javascript-console
 Application.Logger = function() {
+	
 	if (!window.console) console = {}
+	
 	console.log = console.log || function(x){}
 	console.warn = console.warn || function(x){}
 	console.info = console.info || function(x) {}
 	console.error = console.error || function(x) {}	
+	
 	return {
 		log: 	function(msg) { console.log(msg) },
 		warn: 	function(msg) { console.warn(msg) },
