@@ -166,3 +166,18 @@ Utils.print_date()
 Utils.print_date()
 Utils.print_date()
 
+var App = function() {
+  var MyClass = function(tag) {
+    var tag_to_print = tag + ' - printed'
+    this.print_tag = function() {
+      console.log(tag_to_print)
+    }
+  }
+  return {
+    Tagger: MyClass	
+  }
+}()
+
+var Tagger = App.Tagger
+var cls = new Tagger('tag')
+cls.print_tag()

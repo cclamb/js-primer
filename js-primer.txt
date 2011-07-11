@@ -104,6 +104,57 @@ Here, we've created a Logger namespace with associated functions for logging inf
 
 In some ways, these namespaces we're creating are similar to nested classes.  While certainly true, the key point to note is that while these may in fact be objects we're using to provide namespaces, they still provide the namespacing functionality we need by creating specific areas in which we can define unique entity names.
 
+Classes in Namespaces
+
+We've defined a couple of different ways in which you can create namespaces in JavaScript.  So far though, we've been defining functions in those namespaces.  It's completely appropriate to do that - and frankly, being able to mix functions with classes in a namespace is a powerful facility most other mainstream object-oriented languages don't have.  Usually, this kind of functionality is emulated via static classes (i.e. classes with nothing but static methods).
+
+So first, let's review how we define classes in JavaScript:
+
+var MyClass = function(tag) {
+  var tag_to_print = tag + ' - printed'
+  this.print_tag = function() {
+    console.log(tag_to_print)
+  }
+}
+
+var cls = new MyClass('tag')
+cls.print_tag()
+
+This will print the string 'tag - printed' to the console.  Notice in this example we've created a private variable tag_to_print which we output via the print_tag() method (I'll refer to functions on a class or object as methods and standalone functions as functions from here on).
+
+To include this class in a namespace, we'd define it like this:
+
+var App = function() {
+  var MyClass = function(tag) {
+    var tag_to_print = tag + ' - printed'
+    this.print_tag = function() {
+      console.log(tag_to_print)
+    }
+  }
+  return {
+    Tagger: MyClass	
+  }
+}()
+
+You'd then create and use an instance of this class like so:
+
+var cls = new App.Tagger('tag')
+cls.print_tag()
+
+You could also do something like this, if you don't like using full class names:
+
+var Tagger = App.Tagger
+var cls = new Tagger('tag')
+cls.print_tag()
+
+You can also do this for namespaced functions, not just class definitions.  Furthermore, here, we've shown a class defined inside of the namespace. You can also assign previously defined classes from other files in a similar way where, for example, MyClass is defined in a previously read file, and the App namespace function becomes a simple object literal factory.
+
+So at this point, we've covered how you can namespace both classes and functions, and how you can alias classes into a shorter form.  Next, I'll pull all this together into an example illustrating how you could use this in a real system.
+
+
+
+
+
 
 
 
