@@ -1,11 +1,18 @@
+var app = require('./application');
+
 exports.main = function() {
 
   var _entry_pt = function(socket) {
-    socket.write("Echo server: " +app.version.msg + "\r\n");
+    socket.write("Echo server..." + app.version.msg + "\r\n");
     socket.pipe(socket);
   };
 
   return {
-    main: _entry_pt
+    engine: _entry_pt
   };
 }();
+
+/*exports.main = function(socket) {
+    socket.write("Echo server...\r\n");
+    socket.pipe(socket);
+  };*/
