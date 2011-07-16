@@ -4,4 +4,3 @@ exports.version = function(){
     msg: 'msg for echo'
   };
 }();
-

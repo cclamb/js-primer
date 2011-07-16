@@ -11,8 +11,3 @@ exports.main = function() {
     engine: _entry_pt
   };
 }();
-
-/*exports.main = function(socket) {
-    socket.write("Echo server...\r\n");
-    socket.pipe(socket);
-  };*/
