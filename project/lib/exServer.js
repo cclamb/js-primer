@@ -5,7 +5,7 @@ net.createServer(function(socket) {
 		console.log('...welcome sent to ' + socket.remotePort + '@' + socket.remoteAddress); 
 	});
 	socket.on('data', function(data) {
-		console.log('data received: ' + data);
+		console.log('data received: "' + data + '"');
 	});
 	socket.pipe(socket);
 }).listen(1337, "127.0.0.1", function() { console.log('...server has been bound.'); });
