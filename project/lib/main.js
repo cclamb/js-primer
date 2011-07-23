@@ -21,7 +21,7 @@ exports.main = function() {
 					break;
 				default:
 					generator = new function() {
-						this.generate = function() { return ''; }
+						this.generate = function() { return 'undefined token submitted: '; }
 					}
 			}
 			return generator.generate();
@@ -36,15 +36,24 @@ exports.main = function() {
 	}
 
   var _entry_pt = function(socket) {
-    socket.write("Echo server; version: " + _build_version_string() + "\r\n");
-		console.log(socket);
-		//var processor = new _processor();
-		//var retval = processor.dispatch(socket);
-    socket.pipe(socket);
+	
+		socket.write('date & random server: 1.0.0; enter command\r\n', 'ascii', function() { 
+			console.log('...welcome sent to ' + socket.remotePort + '@' + socket.remoteAddress); 
+		});
+		
+		var processor = new _processor();
+
+		socket.on('data', function(data) {
+			console.log('data received: "' + data + '"');
+			var retval = processor.dispatch(data);
+			socket.write(retval);
+		});
+
+		socket.pipe(socket);
   }
 
-	var _event_listener = function(event) {
-		console.log(event);
+	var _event_listener = function() {
+		console.log('...server has been bound.'); 
 	}
 
   return {
