@@ -5,7 +5,6 @@ exports.date = function() {
 		this.generate = function() {
 			return new Date();
 		}
-		
 	}
 	
 	return {

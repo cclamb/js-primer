@@ -37,8 +37,15 @@ exports.main = function() {
 
   var _entry_pt = function(socket) {
 	
-		socket.write('date & random server: 1.0.0; enter command\r\n', 'ascii', function() { 
-			console.log('...welcome sent to ' + socket.remotePort + '@' + socket.remoteAddress); 
+		socket.write('date & random server: ' 
+		  + _build_version_string()
+		  + '; enter command\r\n', 
+		  'ascii', 
+		  function() { 
+			  console.log('...welcome sent to ' 
+			    + socket.remotePort 
+			    + '@' 
+			    + socket.remoteAddress); 
 		});
 		
 		var processor = new _processor();
