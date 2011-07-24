@@ -5,7 +5,7 @@ exports.random = function() {
 		var _scale = scale;
 		
 		this.generate = function() {
-			return Math.floor(Math.random() * _scale);
+			return Math.floor(Math.random() * _scale).toString();
 		}
 	}
 	

@@ -8,6 +8,7 @@ net.createServer(function(socket) {
 	
 	socket.on('data', function(data) {
 		console.log('data received: "' + data + '"');
+		socket.write('foo\n\r');
 	});
 	
 	socket.pipe(socket);

@@ -7,21 +7,28 @@ exports.main = function() {
 	var _processor = function() {
 		
 		var SCALE = 10;
-		var GET_DATE = 'date';
-		var GET_RANDOM = 'random';
+		var DATE = 1;
+		var RANDOM = 2;
+		var UNKNOWN = 3;
+		
+		var parser = function(cmd) {
+			if (cmd.match(/date/ig)) 		return DATE;
+			if (cmd.match(/random/ig))	return RANDOM;
+			return UNKNOWN;
+		}
 		
 		this.dispatch = function(cmd) {
 			var generator;
-			switch(cmd) {
-				case GET_DATE:
+			switch(parser(cmd.toString())) {
+				case DATE:
 					generator = new date.Generator();
 					break;
-				case GET_RANDOM:
+				case RANDOM:
 					generator = new random.Generator(SCALE);
 					break;
 				default:
 					generator = new function() {
-						this.generate = function() { return 'undefined token submitted: '; }
+						this.generate = function() { return 'undefined token submitted.'; }
 					}
 			}
 			return generator.generate();
@@ -53,10 +60,10 @@ exports.main = function() {
 		socket.on('data', function(data) {
 			console.log('data received: "' + data + '"');
 			var retval = processor.dispatch(data);
-			socket.write(retval);
+			console.log('response: ' + retval);
+			socket.write(retval + '\r\n');
 		});
 
-		socket.pipe(socket);
   }
 
 	var _event_listener = function() {
