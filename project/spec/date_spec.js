@@ -1,15 +1,17 @@
-describe('jasmine-node', function(){
 
-  it('should pass', function(){
-    expect(1+2).toEqual(3);
+var date = require('../lib/date').date;
+
+describe('date specification', function(){
+
+  it('should return a valid value', function(){
+    var generator = new date.Generator();
+		var value = generator.generate();
+		expect(value).not.toBeNull();
   });
 
-  it('shows asynchronous test', function(){
-    setTimeout(function(){
-      expect('second').toEqual('second');
-      asyncSpecDone();
-    }, 1);
-    expect('first').toEqual('first');
-    asyncSpecWait();
-  });
+	it('should return the current date', function() {
+		var generator = new date.Generator();
+		expect(generator.generate().toString()).toEqual(new Date().toString());
+	});
+
 });

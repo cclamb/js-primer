@@ -10,7 +10,7 @@ var evaluator = function(seed) {
 	var generator = new random.Generator(seed);
 	var value = generator.generate();
 	expect(value).not.toBeNull();
-	expect(value).toBeGreaterThan(0);
+	expect(value).toBeGreaterThan(-0.001);
 	expect(value).toBeLessThan(seed);
 };
 
